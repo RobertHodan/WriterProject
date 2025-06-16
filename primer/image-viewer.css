@@ -1,0 +1,140 @@
+.primer.image-viewer {
+  background: grey;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding: 1.2em 0.5em;
+}
+
+.primer.image-viewer .nav-btn {
+  width: 33%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.primer.image-viewer .prev svg {
+  transform: scaleX(-1);
+}
+
+.primer.image-viewer svg {
+  fill: none;
+  stroke: white;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.primer.image-viewer .image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  height: 100%;
+}
+
+.primer.image-viewer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.primer.image-viewer .container[role="dialog"] {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  z-index: 1000;
+}
+
+.primer.image-viewer .container[role="dialog"] .background {
+  background: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+}
+
+.primer.image-viewer .container[role="dialog"] img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.primer.image-viewer .container[role="dialog"] .image-container {
+  position: fixed;
+}
+
+.primer.image-viewer .nav-btn:hover svg {
+  opacity: 1;
+  transition: opacity 0.2s;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  padding: 0.1em;
+}
+
+.primer.image-viewer .next {
+  right: 0;
+}
+
+.primer.image-viewer .prev {
+  left: 0;
+}
+
+.primer.image-viewer.default img {
+  display: none;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.primer.image-viewer.default img.selected {
+  display: block;
+}
+
+.primer.image-viewer.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  row-gap: 2em;
+}
+
+.primer.image-viewer.flex img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.primer.image-viewer.flex .nav-btn {
+  display: none;
+}
+
+.primer.image-viewer .image-indicator {
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  gap: 0.3em;
+  justify-content: center;
+  padding: 0.1em;
+}
+
+.primer.image-viewer.flex ul {
+  display: none;
+}
+
+.primer.image-viewer ul {
+  list-style: none;
+}
+
+.primer.image-viewer .image-indicator li {
+  border-radius: 50%;
+  background: gray;
+  width: 0.6em;
+  height: 0.6em;
+  border: 0.1em solid black;
+}
+
+.primer.image-viewer .image-indicator li.selected {
+  background: white;
+}

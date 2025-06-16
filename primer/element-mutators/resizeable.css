@@ -1,0 +1,42 @@
+/* Example CSS */
+
+.resize-hitbox {
+  position: absolute;
+  user-select: none;
+}
+
+.resize-hitbox.right {
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 0.5em;
+  margin-right: -0.25em;
+  cursor: e-resize;
+}
+
+.resize-hitbox.left {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0.5em;
+  margin-left: -0.25em;
+  cursor: e-resize;
+}
+
+.resize-hitbox.top {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0.5em;
+  margin-top: -0.25em;
+  cursor: n-resize;
+}
+
+.resize-hitbox.bottom {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.5em;
+  margin-bottom: -0.25em;
+  cursor: n-resize;
+}
