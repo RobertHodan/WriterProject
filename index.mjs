@@ -101,7 +101,7 @@ navigable(timeline, {
   context: MODALS.TIMELINE,
 });
 
-modalManager.showModal(MODALS.TIMELINE);
+//modalManager.showModal(MODALS.TIMELINE);
 
 document.body.append(sidebar);
 document.body.append(pageContent);
