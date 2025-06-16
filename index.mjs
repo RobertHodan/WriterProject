@@ -103,8 +103,8 @@ navigable(timeline, {
 
 //modalManager.showModal(MODALS.TIMELINE);
 
-document.body.append(sidebar);
-document.body.append(pageContent);
+//document.body.append(sidebar);
+//document.body.append(pageContent);
 
 document.body.append(modalManager);
 
