@@ -5,8 +5,7 @@
  * @property {string?} className
  */
 
-import { ObserverSingleton } from '../../nav-ui/observer-singleton.mjs';
-import { clamp, clearElement, isArray, isFunction, isIterable, isString, noop } from '../utils/utils.mjs';
+import { clamp, clearElement, isIterable, noop } from '../utils/utils.mjs';
 
 const defaults = {
 }
@@ -31,52 +30,41 @@ export class Component extends HTMLElement {
     this.mutators = [];
 
     this.isComponent = true;
-    this.isinitialized = false;
+    this.isInitialized = false;
+  }
 
-    // Components need to know when they have been added / removed from the DOM
-    // An observer is used to achieve this. This code block executes only once.
-    if (!Component._observer) {
-      Component._observer = new ObserverSingleton();
+  connectedCallback() {
+    console.log("Connected", this);
+  }
 
-      Component._observer.observeBooleanTrue('isComponent', function(component) {
-        if (isFunction(component.onAddedToDOM)) {
-          component.onAddedToDOM();
-        }
-
-        return function() {
-          if (isFunction(component.onRemovedFromDOM)) {
-            component.onRemovedFromDOM();
-          }
-        }
-      });
-    }
+  disconnectedCallback() {
+    console.log("Disconnected", this);
   }
 
   append(child) {
-    this._addChild(child, true);
-  }
-
-  prepend(child) {
-    this._addChild(child, false);
-  }
-
-  _addChild(child, isAppend) {
-    if (child == undefined) {
-      return;
-    }
-
     if (isIterable(child)) {
       for (const c of child) {
-        isAppend ? this.append(c) : this.prepend(c);
+        super.append(child);
       }
       return;
     }
 
-    isAppend ? super.append(child) : super.prepend(child);
+    super.append(child);
 
-    if (isFunction(child.onAddedToDOM)) {
-      child.onAddedToDOM();
+    setTimeout(() => {
+      this.onRender();
+    }, 0);
+  }
+
+  prepend(child) {
+    if (isIterable(child)) {
+      for (const c of child) {
+        super.prepend(c);
+      }
+      return;
     }
+
+    super.prepend(child);
   }
 
   // Should be used to update any elements when data changes
@@ -86,28 +74,13 @@ export class Component extends HTMLElement {
   }
 
   initialize() {
-    this.isinitialized = true;
-  }
-
-  onAddedToDOM() {
-    // Assume that the next frame renders the element
-    setTimeout(() => {
-      this.onRender();
-    }, 0);
-
-    if (!this.isinitialized) {
-      this.initialize();
-    }
-
-    const children = this.getChildren();
-    for (let child of children) {
-      if (isFunction(child.onAddedToDOM)) {
-        child.onAddedToDOM();
-      }
-    }
   }
 
   onRender() {
+    if (!this.isInitialized) {
+      this.initialize();
+      this.isInitialized = true;
+    }
     this.update();
   }
 
@@ -224,6 +197,7 @@ export class Component extends HTMLElement {
     return !this.isHidden();
   }
 
+  // Remove the element from the DOM, and clear any references to other objects
   destroy() {
     this.onDestroy();
   }
@@ -246,12 +220,7 @@ export class Component extends HTMLElement {
   cloneNode(deep) {
     const clone = super.cloneNode(deep);
     clone.isClone = true;
-    this.onCloned(clone);
     return clone;
-  }
-
-  onCloned(clone) {
-
   }
 }
 

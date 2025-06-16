@@ -10,6 +10,7 @@ import "./ui/page-content.mjs";
 import "./ui/timeline.mjs";
 import { navigable } from "./nav-ui/mutators/navigable.mjs";
 import { NAVACTIONS } from "./nav-ui/nav-actions.mjs";
+import { Button } from "./primer/components/button.mjs";
 
 const flat = flattenJSONStrings(en);
 
@@ -107,4 +108,18 @@ navigable(timeline, {
 //document.body.append(pageContent);
 
 document.body.append(modalManager);
+
+const button = document.createElement('button-component', {
+  className: 'btn',
+});
+button.action = () => {
+  console.log("TEST");
+};
+
+const button2 = document.createElement('button-component', {
+  className: 'btn',
+});
+button.append(button2);
+
+document.body.append(button);
 
