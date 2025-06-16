@@ -1,0 +1,234 @@
+@import './normalize.css';
+@import './primer/modal.css';
+/* TODO: Replace this with a downloaded font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  background: #00000000;
+  font-size: 16px;
+
+  /* Font Sizes */
+  --chapter-list-size: 1.4em;
+
+  /* Dimensions */
+  --btn-size-width: 3em;
+  --btn-size-height: 1em;
+
+  /* Colors */
+  --text-color-main: #f2f2f6;
+  --text-color-medium: #dfdfdf;
+  --text-color-dark: #c5c5c7;
+  --background-primary: #1f1f1f;
+  --background-modal-main: #171D25;
+  --background-modal-second: #2A2D34;
+  --background-modal-third: #11141a;
+  --background-light: #dddddd;
+  --border-main: #212831;
+  --border-light: #8e8e8e;
+  --border-medium: #5a5a5a;
+  --border-dark: #363636;
+  --btn-background: #fafafa;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Roboto';
+  display: flex;
+  background: var(--background-primary)
+}
+
+.hover {
+  border: 0.1em solid var(--btn-background);
+}
+
+chapter-sidebar {
+  background: #292929;
+  border-right: 1px solid var(--border-dark);
+  height: 100%;
+  min-width: 10em;
+  display: flex;
+  font-size: var(--chapter-list-size);
+  flex-direction: column;
+  z-index: 0;
+}
+
+.chapter-list-item .item-input {
+  height: 100%;
+  background: none;
+  border: none;
+  color: var(--text-color-dark);
+  field-sizing: content;
+  min-width: 0;
+  box-sizing: border-box;
+  flex-grow: 1;
+  text-overflow: ellipsis;
+}
+
+.chapter-list-item {
+  min-height: 1em;
+  display: flex;
+  height: fit-content;
+  align-items: center;
+}
+
+.chapter-list-item input {
+  cursor: pointer;
+}
+
+.chapter-list-item input:disabled {
+  pointer-events: none;
+}
+
+.chapter-list-item.selected {
+  background: var(--background-primary);
+  border-left: 0.15em solid var(--border-medium);
+}
+
+.chapter-list-item .edit-btn {
+  display: none;
+  pointer-events: none;
+  background: none;
+  border: none;
+  color: var(--text-color-main);
+  cursor: pointer;
+}
+
+.chapter-list-item:hover .edit-btn {
+  display: inherit;
+  pointer-events: inherit;
+}
+
+.drag-handle {
+  width: 0.8em;
+  padding: 1em 0;
+  flex-shrink: 0;
+  cursor: grab;
+  user-select: none;
+}
+
+.chapter-list-item.selected .drag-handle {
+  padding: 1.3em 0;
+}
+
+.page-content {
+  color: var(--text-color-main);
+  width: 100%;
+  height: 100%;
+}
+
+.modal-manager {
+  position: fixed;
+}
+
+.modal-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content {
+  flex-grow: 1;
+  display: flex;
+}
+
+timeline-component {
+  flex-grow: 1;
+  background: var(--background-modal-main);
+}
+
+timeline-component .dates {
+  display: flex;
+  box-sizing: border-box;
+  margin-top: 0.5em;
+}
+
+timeline-component .day-number,
+timeline-component .day-name,
+timeline-component .description,
+timeline-component .events {
+  font-size: 1.3em;
+  color: white;
+  padding: 0 0.5em;
+  justify-self: center;
+}
+
+timeline-component .date {
+  width: inherit;
+  flex-grow: 1;
+  min-height: 25em;
+  box-sizing: border-box;
+  position: relative;
+}
+
+timeline-component .months,
+timeline-component .years {
+  height: 2em;
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+}
+
+timeline-component .month,
+timeline-component .year {
+  height: 100%;
+  width: 1em;
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+}
+
+timeline-component .segment-marker {
+  font-size: 1em;
+  border: 0.1em solid var(--border-light);
+  height: 1em;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-top: none;
+  top: 2.5em;
+}
+
+timeline-component .month,
+timeline-component .year {
+  justify-content: center;
+} 
+
+timeline-component span {
+  font-size: 1.5em;
+  height: 100%;
+  color: var(--text-color-main);
+  display: flex;
+  align-items: center;
+}
+
+.timescale-day .month,
+.timescale-day .year,
+.timescale-month .year {
+  justify-content: unset;
+}
+
+.timescale-day span,
+.timescale-month .years span {
+  position: sticky;
+  left: 50%;
+  width: min-content;
+}
+
+.timescale-day .month-name,
+.timescale-day .year-name,
+.timescale-month .year-name {
+  position: relative;
+  left: -50%;
+  padding: 0 0.5em;
+}
+
+.timescale-month .day-number,
+.timescale-month .day-name,
+.timescale-year .day-number,
+.timescale-year .day-name,
+.timescale-year .months {
+  display: none;
+}
